@@ -1,0 +1,149 @@
+//Zamaraiev Dmytro "Open Sours Program"
+// Program 1.01
+
+#include <iomanip>
+#include <iostream>
+#include "windows.h"
+#include <cmath>
+	using namespace std;
+	int main()
+	{
+		system("color 71");
+		string  action, visitorpassword, visitorname, name, password, cmd;
+		int setup, function, minute, second, timer,systime;   // Огоглошення зміних
+		bool username, userpassword, over;
+		long double a, b, c;
+		name = "user";
+		password = "12345";
+		over = false;
+		cout << "Hello!" << endl << endl << "For registration mode, press 1" << endl << "To enter, press 2" << endl;
+		cin >> setup; //Вітання
+		if (setup == 1) {
+			cout << "Thanks" << endl << "Create your name" << endl;
+			cin >> name;
+			cout << endl;
+			cout << "Create your password" << endl; // Реєстрація
+			cin >> password;
+			username = true;
+			userpassword = true;
+		}
+		if (setup == 2) {
+			cout << "Enter your name" << endl;
+			cin >> visitorname;
+			cout << endl;
+			cout << "Enter your password" << endl; //Вхід у систему
+			cin >> visitorpassword;
+			if (visitorpassword == password && visitorname == name) {
+				username = true;
+				userpassword = true;
+			}
+		}
+		over = true;
+		systime = 30;
+		cout << endl;
+		while (over == true) {
+			while (systime > 0) {
+				systime = systime - 1;
+				cout << "#";
+				Sleep(120);
+			}
+			if (username == true && userpassword == true) {
+				system("cls");
+				cout << "WELCOME BACK" << endl << endl << "Please select the operating mode" << endl << "(1)-Calculator" << endl << "(2)-Timer" << endl << "(3)-Notepad" << endl;
+				cin >> function;        // Головне меню
+			}
+			else {
+				cout << endl << "Please try again";
+				return 0;
+			}
+			system("cls");
+			if (function == 2) {
+				cout << endl << "This is a timer, select a time period." << endl << endl << " 1 - one minute , 2- two minutes , 3 - three minutes, ..." << endl;
+				cin >> minute;
+				cout << "Thenks";
+				timer = minute * 60;
+				minute = 0;
+				second = 0;
+				while (timer >= 0) {
+					cout << endl << minute << " " << ":" << " " << second;  // Timer
+					second++;
+					timer = timer - 1;
+					if (second >= 60) {
+						minute = second / 60;
+						second = second % 60;
+					}
+					Sleep(1000);
+					system("cls");
+				}
+				if (timer <= 0) {
+					cout << "TIME IS OVER" << endl;
+					systime = 40;
+				}
+			}
+			if (function == 1) {
+				cout << "Select an action: + , - , / , * , ^ " << endl;   // Калькулятор
+				cin >> action;
+				if (action == "-") {
+					cin >> a >> b;
+					c = a - b;
+					cout << setprecision(2) << fixed;
+					cout << a << " " << "-" << " " << b << " " << "=" << " " << c << endl << endl;
+					systime = 40;
+				}
+				if (action == "+") {
+					cin >> a >> b;
+					c = a + b;
+					cout << setprecision(2) << fixed;
+					cout << a << " " << "+" << " " << b << " " << "=" << " " << c << endl << endl;
+					systime = 40;
+				}
+				if (action == "/") {
+					cin >> a >> b;
+					c = (double)a / b;
+					cout << setprecision(2) << fixed;
+					cout << a << " " << "/" << " " << b << " " << "=" << " " << c << endl << endl;
+					systime = 40;
+				}
+				if (action == "*") {
+					cin >> a >> b;
+					c = a * b;
+					cout << setprecision(2) << fixed;
+					cout << a << " " << "*" << " " << b << " " << "=" << " " << c << endl << endl;
+					systime = 40;
+				}
+				if (action == "^") {
+					cout << "Enter the number" << endl;
+					cin >> a;
+					cout << "Enter the power of the number" << endl;
+					cin >> b;
+					c = pow(a, b);
+					cout << setprecision(2) << fixed;
+					cout << a << "^" << b << " " << "=" << " " << c << endl << endl;
+					systime = 40;
+				}
+			}
+			if (function == 3) {
+				cout << endl << "Welcom Notepad" << endl << "Select an action" << endl << "(1)-Open Notepad" << endl << "(2)-Open file" << endl;
+				cin >> function;
+				if (function == 1)
+				{
+					system("cls");
+					cmd = "notepad.exe";
+					system(cmd.c_str());
+					systime = 10;
+				}
+				if (function == 2)
+				{
+					system("cls");
+					cout << endl << "Select a file" << endl;
+					cin >> cmd;
+					cmd = "type " + cmd + " >nul";
+					system(cmd.c_str());
+					systime = 15;
+				}
+				function = 0;
+
+			}
+		}
+		return 0;
+	}
